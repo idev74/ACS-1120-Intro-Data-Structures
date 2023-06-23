@@ -22,4 +22,3 @@ def frequency():
 
 if __name__ == "__main__":
     print(frequency())
-    
