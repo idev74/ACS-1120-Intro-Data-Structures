@@ -3,7 +3,7 @@ import random
 import string
 from histogram import histogram
 
-source_text = "Code/fox.txt"
+source_text = "Code/corpus.txt"
 
 def sample():
     words = histogram()

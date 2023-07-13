@@ -1,7 +1,7 @@
 import string
 
 def histogram():
-    source_text = open("Code/fox.txt", "r").read().split()
+    source_text = open("Code/corpus.txt", "r").read().split()
     return source_text
 
 def unique_words():
