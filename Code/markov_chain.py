@@ -25,6 +25,7 @@ class MarkovChain:
 
     def generate_sentence(self, max_words=20):
         sentence = []
+        punctuation = ["!", "?", ".", "..."]
         queue = deque(maxlen=2)
         while len(sentence) < max_words:
             if len(queue) == 0:
@@ -32,16 +33,21 @@ class MarkovChain:
             else:
                 word_pair = tuple(queue)
             next_word_dict = self.markov_dict.get(word_pair)
+            
             if next_word_dict is None:
                 queue.clear()
             else:
                 next_word = next_word_dict.sample()
+            
+            if next_word not in sentence:
                 sentence.append(next_word)
                 queue.append(next_word)
+
         sentence = " ".join(sentence)
         sentence = sentence.capitalize()
-        if not sentence.endswith((".", "?", "!", ",")):
-            sentence += "."
+        sentence = sentence.translate(str.maketrans('', '', string.punctuation))
+        sentence += random.choice(punctuation)
+
         return sentence
 
     def print_markov_chain(self, num_samples=1):
@@ -53,9 +59,7 @@ class MarkovChain:
 
 
 def main():
-    word_list = open("Code/corpus.txt", "r").read()
-    for word in word_list:
-        word = word.translate(str.maketrans('', '', string.punctuation))
+    word_list = open("Code/corpus.txt", "r").read().split()
     markov = MarkovChain(word_list)
     markov.print_markov_chain()
 
