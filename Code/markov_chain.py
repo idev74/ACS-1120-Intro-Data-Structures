@@ -3,7 +3,7 @@ import string
 from dictogram import Dictogram
 from collections import deque
 
-class MarkovChain:
+class MarkovChain(Dictogram):
     def __init__(self, word_list=None):
         self.markov_dict = {}
         self.word_list = word_list
@@ -46,6 +46,7 @@ class MarkovChain:
         sentence = " ".join(sentence)
         sentence = sentence.capitalize()
         sentence = sentence.translate(str.maketrans('', '', string.punctuation))
+
         sentence += random.choice(punctuation)
 
         return sentence
