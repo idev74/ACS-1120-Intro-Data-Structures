@@ -7,7 +7,9 @@ app = Flask(__name__)
 @app.route("/")
 def home():
     """Route that returns a web page containing the generated text."""
-    markov = MarkovChain().generate_sentence()
+    with open("Code/corpus.txt", "r") as file:
+        word_list = file.read().split()
+    markov = MarkovChain(word_list=word_list).generate_sentence(max_words=20)
     return render_template("index.html", markov=markov)
 
 if __name__ == "__main__":

@@ -23,7 +23,7 @@ class MarkovChain:
                 next_word_dict.add_count(next_word)
                 self.markov_dict[word_pair] = next_word_dict
 
-    def generate_sentence(self, max_words=25):
+    def generate_sentence(self, max_words=20):
         sentence = []
         queue = deque(maxlen=2)
         while len(sentence) < max_words:
@@ -40,7 +40,7 @@ class MarkovChain:
                 queue.append(next_word)
         sentence = " ".join(sentence)
         sentence = sentence.capitalize()
-        if not sentence.endswith((".", "?", "!")):
+        if not sentence.endswith((".", "?", "!", ",")):
             sentence += "."
         return sentence
 
@@ -54,9 +54,8 @@ class MarkovChain:
 
 def main():
     word_list = open("Code/corpus.txt", "r").read()
-    translated = word_list.maketrans('', '', string.punctuation)
-    word_list = word_list.translate(translated).split()
-
+    for word in word_list:
+        word = word.translate(str.maketrans('', '', string.punctuation))
     markov = MarkovChain(word_list)
     markov.print_markov_chain()
 
